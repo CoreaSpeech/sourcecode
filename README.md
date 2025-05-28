@@ -61,29 +61,24 @@ CoreaSpeech/sourcecode/
     *Note: `pyannote.audio` installation can be complex. Refer to its official documentation for detailed setup and troubleshooting.*
 
 4.  **Hugging Face Token (for `pyannote.audio`):**
-    Speaker diarization via `pyannote.audio` requires a Hugging Face token with `read` access. Provide it via `huggingface-cli login` or as an argument to relevant scripts (e.g., `run_pipeline.py`).
+    Ensure `pyannote.audio` can access your Hugging Face token. This is typically done via `huggingface-cli login` or by setting the `HF_TOKEN` variable directly within `src/run_pipeline.py` (as detailed in the Usage section for `run_pipeline.py`).
 
 ## Usage
 
-The main pipeline can be executed using `run_pipeline.py`. This script orchestrates the different stages of data processing.
+The main pipeline can be executed using `src/run_pipeline.py`. This script orchestrates the different stages of data processing and is primarily configured internally (see the example below for `run_pipeline.py`).
 
-```bash
-python src/run_pipeline.py [arguments]
-```
+Individual scripts used within the pipeline (like `prepare_*.py`, `core_jamo_selecting.py`, `audio_feature_extracting.py`) accept various command-line arguments.
 
-**Key Arguments for `run_pipeline.py` (and other scripts):**
+**Key Arguments for Individual Data Processing Scripts:**
 
-(Please refer to the script's argument parser for a complete list and up-to-date details. Below are common ones.)
+(Please refer to each script's argument parser or source code for a complete and up-to-date list. Below are common examples.)
 
-*   `--emilia_raw_path`: Path to the raw Emilia dataset.
-*   `--emilia_output_jsonl`: Path to save the processed Emilia dataset (jsonl format).
-*   `--kss_raw_path`: Path to the raw KSS dataset.
-*   `--kss_output_jsonl`: Path to save the processed KSS dataset (jsonl format).
-*   `--coreset_input_jsonl`: Input jsonl file for coreset selection.
-*   `--coreset_output_jsonl`: Output jsonl file after coreset selection.
-*   `--hf_token`: Hugging Face token.
-*   `--utmos_mode`, `--utmos_static_value`, `--utmos_dynamic_type`, etc.: Parameters for UTMOS-based filtering in coreset selection.
-*   Many scripts take input and output paths, often for `.jsonl` files or directories.
+*   `--input_jsonl`, `--output_jsonl`: Paths for input and output `.jsonl` files.
+*   `--raw_path`: Path to raw dataset files or directories.
+*   `--hf_token`: Hugging Face token (may be required by scripts using Hugging Face models like `pyannote.audio`).
+*   `--column_name_for_jamo`, `--column_name_for_utmos`: Specific column names in data files.
+*   `--utmos_mode`, `--utmos_static_value`, `--utmos_dynamic_type`, etc.: Parameters for UTMOS-based filtering.
+*   Many scripts take various other paths and configuration parameters.
 
 **Example (Conceptual - adapt paths and arguments as needed):**
 
