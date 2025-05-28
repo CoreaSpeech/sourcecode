@@ -13,7 +13,7 @@ This repository contains the source code for a pipeline designed for processing 
 ### Key Features
 - **Data Conditioning Pipeline**:
     - **Speaker Diarization**: Utilizes `pyannote.audio` for segmenting audio by speaker.
-    - **Text Categorization**: Categorizes text data (details الوطنية in `src/module/data_conditioning/categorizing.py`).
+    - **Text Categorization**: Categorizes text data (details in `src/module/data_conditioning/categorizing.py`).
     - **Korean Text Normalization**: Employs `N2gk` and `N2gkPlus` for normalizing numerals, English words, and special characters in Korean text (see `src/module/data_conditioning/normalization.py`).
     - **Audio Feature Extraction**: Extracts audio features (details in `src/module/data_conditioning/audio_feature_extracting.py`).
 - **Coreset Selection**:
@@ -67,7 +67,7 @@ CoreaSpeech/sourcecode/
     ```bash
     pip install -r requirements.txt
     ```
-    *Note: `pyannote.audio` and its related models/dependencies might require careful installation. Please refer to the official `pyannote.audio` documentation for detailed instructions if you encounter issues or need specific diarization models. Some `pyannote` dependencies are commented out in `requirements.txt` and may need to be installed પાણી.
+    *Note: `pyannote.audio` and its related models/dependencies might require careful installation. Please refer to the official `pyannote.audio` documentation for detailed instructions if you encounter issues or need specific diarization models. Some `pyannote` dependencies are commented out in `requirements.txt` and may need to be installed manually.*
 
 4.  **Hugging Face Token (Required for `pyannote.audio`):**
     Some functionalities, particularly speaker diarization using `pyannote.audio`, require a Hugging Face token with `read` access to download pre-trained models. Ensure you have a token and are logged in (`huggingface-cli login`) or provide the token when prompted/configured.
