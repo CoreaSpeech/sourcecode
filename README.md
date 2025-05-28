@@ -1,4 +1,8 @@
-# Korean Speech Data Processing and Coreset Selection Pipeline
+# CoreaSpeech: Korean Speech Corpus via JAMO-based Coreset Selection for Efficient and Robust Korean Speech Generation
+
+<div align="center">
+  <img width="500px" src="./assets/coreaspeech_logo.png" alt="CoreaSpeech Logo">
+</div>
 
 ## News
 - **2025/05/15**: CoreaSpeech dataset, pipeline code, PEFT-TTS model, and Korean Universal Benchmark released!
