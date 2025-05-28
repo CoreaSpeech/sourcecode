@@ -58,11 +58,10 @@ CoreaSpeech/sourcecode/
     ```bash
     pip install -r requirements.txt
     ```
-    *Note: `pyannote.audio` and its related models/dependencies might require careful installation. Please refer to the official `pyannote.audio` documentation for detailed instructions if you encounter issues or need specific diarization models. Some `pyannote` dependencies are commented out in `requirements.txt` and may need to be installed manually.*
+    *Note: `pyannote.audio` installation can be complex. Refer to its official documentation for detailed setup and troubleshooting.*
 
-4.  **Hugging Face Token (Required for `pyannote.audio`):**
-    Some functionalities, particularly speaker diarization using `pyannote.audio`, require a Hugging Face token with `read` access to download pre-trained models. Ensure you have a token and are logged in (`huggingface-cli login`) or provide the token when prompted/configured.
-    The `run_pipeline.py` script and `audio_feature_extracting.py` accept an `hf_token` argument.
+4.  **Hugging Face Token (for `pyannote.audio`):**
+    Speaker diarization via `pyannote.audio` requires a Hugging Face token with `read` access. Provide it via `huggingface-cli login` or as an argument to relevant scripts (e.g., `run_pipeline.py`).
 
 ## Usage
 
@@ -82,38 +81,44 @@ python src/run_pipeline.py [arguments]
 *   `--kss_output_jsonl`: Path to save the processed KSS dataset (jsonl format).
 *   `--coreset_input_jsonl`: Input jsonl file for coreset selection.
 *   `--coreset_output_jsonl`: Output jsonl file after coreset selection.
-*   `--hf_token`: Hugging Face token (if needed for models like pyannote).
+*   `--hf_token`: Hugging Face token.
 *   `--utmos_mode`, `--utmos_static_value`, `--utmos_dynamic_type`, etc.: Parameters for UTMOS-based filtering in coreset selection.
 *   Many scripts take input and output paths, often for `.jsonl` files or directories.
 
 **Example (Conceptual - adapt paths and arguments as needed):**
 
-```bash
-# Example: Preparing Emilia dataset, then KSS, then running coreset selection
-python src/dataset/prepare_emilia.py --raw_path /path/to/emilia_raw --output_jsonl data/emilia_prepared.jsonl
-python src/dataset/prepare_kss.py --raw_path /path/to/kss_raw --output_jsonl data/kss_prepared.jsonl
+The following examples illustrate individual steps of the data processing pipeline. The `src/run_pipeline.py` script is designed to automate these stages.
 
-# (Combine emilia_prepared.jsonl and kss_prepared.jsonl manually or with a script if needed for coreset input)
+1.  **Preparing Individual Datasets:**
+    ```bash
+    python src/dataset/prepare_emilia.py --raw_path /path/to/emilia_raw --output_jsonl data/emilia_prepared.jsonl
+    python src/dataset/prepare_kss.py --raw_path /path/to/kss_raw --output_jsonl data/kss_prepared.jsonl
+    ```
+    *(You might need to combine the outputs of these preparation scripts into a single file for the next steps if processing multiple datasets.)*
 
-python src/module/coreset_selection/core_jamo_selecting.py \
-    --input_jsonl data/combined_prepared.jsonl \
-    --output_jsonl data/coreset_selected.jsonl \
-    --column_name_for_jamo "text" \
-    --column_name_for_utmos "utmos_score" \
-    --utmos_mode "dynamic" \
-    --utmos_dynamic_type "quantile" \
-    --utmos_quantile_value 0.1
+2.  **Running Coreset Selection (Example):**
+    ```bash
+    python src/module/coreset_selection/core_jamo_selecting.py \
+        --input_jsonl data/combined_prepared.jsonl \
+        --output_jsonl data/coreset_selected.jsonl \
+        --column_name_for_jamo "text" \
+        --column_name_for_utmos "utmos_score" \
+        --utmos_mode "dynamic" \
+        --utmos_dynamic_type "quantile" \
+        --utmos_quantile_value 0.1
+    ```
 
-# The run_pipeline.py script aims to automate these stages.
-# Check its arguments and implementation for direct pipeline execution.
-python src/run_pipeline.py \
-    --emilia_raw_path /path/to/emilia_raw --emilia_output_jsonl data/emilia_processed.jsonl \
-    --kss_raw_path /path/to/kss_raw --kss_output_jsonl data/kss_processed.jsonl \
-    --coreset_input_jsonl data/combined_for_coreset.jsonl --coreset_output_jsonl data/final_coreset.jsonl \
-    --hf_token YOUR_HF_TOKEN
-```
+3.  **Using the Automated Pipeline (`run_pipeline.py`):**
 
-*Note: The exact flow and combination of inputs/outputs for `run_pipeline.py` should be verified from its source code, as it may expect specific intermediate files or naming conventions.*
+    The `src/run_pipeline.py` script automates the entire process from raw data to the final coreset. To use it:
+    *   **Modify the `CONFIG` section** at the top of `src/run_pipeline.py` to specify your input dataset paths (e.g., `RAW_JSONLS`) and desired output paths.
+    *   **Set your Hugging Face token** by editing the `HF_TOKEN` variable within the script if you haven't configured it globally. This is required for `pyannote.audio` (speaker diarization).
+    *   Then, run the script:
+        ```bash
+        python src/run_pipeline.py
+        ```
+
+*Note: Always review the `CONFIG` section and internal logic of `src/run_pipeline.py` to understand its exact behavior and ensure it aligns with your data and environment before execution.*
 
 ## Modules Overview
 
