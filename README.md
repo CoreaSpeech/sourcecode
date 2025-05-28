@@ -75,7 +75,7 @@ Individual scripts used within the pipeline (like `prepare_*.py`, `core_jamo_sel
 
 *   `--input_jsonl`, `--output_jsonl`: Paths for input and output `.jsonl` files.
 *   `--raw_path`: Path to raw dataset files or directories.
-*   `--hf_token`: Hugging Face token (may be required by scripts using Hugging Face models like `pyannote.audio`).
+*   `--hf_token`: Hugging Face token.
 *   `--column_name_for_jamo`, `--column_name_for_utmos`: Specific column names in data files.
 *   `--utmos_mode`, `--utmos_static_value`, `--utmos_dynamic_type`, etc.: Parameters for UTMOS-based filtering.
 *   Many scripts take various other paths and configuration parameters.
@@ -89,7 +89,6 @@ The following examples illustrate individual steps of the data processing pipeli
     python src/dataset/prepare_emilia.py --raw_path /path/to/emilia_raw --output_jsonl data/emilia_prepared.jsonl
     python src/dataset/prepare_kss.py --raw_path /path/to/kss_raw --output_jsonl data/kss_prepared.jsonl
     ```
-    *(You might need to combine the outputs of these preparation scripts into a single file for the next steps if processing multiple datasets.)*
 
 2.  **Running Coreset Selection (Example):**
     ```bash
@@ -137,6 +136,7 @@ The CoreaSpeech Dataset, Korean Universal Testset, and model checkpoints are rel
 
 The preprocessing, training, and evaluation code (contained in this repository) are released under the [MIT license](https://opensource.org/licenses/MIT).
 
+<!--
 ## TODO
 
 *   [ ] Finalize and document the exact flow of `run_pipeline.py`.
@@ -147,3 +147,4 @@ The preprocessing, training, and evaluation code (contained in this repository) 
 *   [ ] Refine `requirements.txt` with specific, tested versions for all libraries.
 
 ---
+-->
