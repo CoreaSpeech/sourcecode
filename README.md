@@ -6,6 +6,7 @@
 
 ## News
 - **2025/05/15**: CoreaSpeech dataset, pipeline code, PEFT-TTS model, and Korean Universal Benchmark released!
+- **2025/05/15**: License information has been updated. The CoreaSpeech Dataset, Korean Universal Testset, and model checkpoints are under CC-BY-NC 4.0, and the code is under the MIT license. See the License section for more details.
 
 ## Overview
 This repository contains the source code for a pipeline designed for processing Korean speech data. It includes modules for data conditioning (diarization, normalization, categorization), coreset selection based on Jamo and audio quality metrics, and supplementary finalization.
@@ -22,14 +23,7 @@ This repository contains the source code for a pipeline designed for processing 
 - **Supplementary Finalization**:
     - **Data Appending**: Scripts to append or combine data, potentially for balancing utterance durations (see `src/module/supplementary_finalization/data_appending.py`).
 
-### (Optional) Language & Domain Statistics
-| Category        | Description                                  | Details                                      |
-|-----------------|----------------------------------------------|----------------------------------------------|
-| Language        | Korean                                       | Primarily standard Korean accents            |
-| Total Hours     | 700 hours                                   | Selected from ~2000+ hours of raw data       |
-| Speakers        | 21,449                                      | Diverse speaker demographics                 |
-| Utterance Length| Balanced distribution from 0 to 30 seconds   | Achieved via data appending                  |
-| Text Source     | Various public domain and licensed sources   | Normalized and categorized                   |
+
 
 ## Project Structure
 
@@ -142,7 +136,9 @@ python src/run_pipeline.py \
 
 ## License
 
-This project is currently not under a specific license. Please specify a license (e.g., MIT, Apache 2.0) if you intend for others to use, modify, or distribute this code.
+The CoreaSpeech Dataset, Korean Universal Testset, and model checkpoints are released under the [CC-BY-NC 4.0 license](https://creativecommons.org/licenses/by-nc/4.0/).
+
+The preprocessing, training, and evaluation code (contained in this repository) are released under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## TODO
 
@@ -154,4 +150,3 @@ This project is currently not under a specific license. Please specify a license
 *   [ ] Refine `requirements.txt` with specific, tested versions for all libraries.
 
 ---
-*This README was updated to reflect the current codebase. Further details and specific instructions should be added as the project evolves.* 
