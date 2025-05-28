@@ -8,7 +8,7 @@
 - **2025/05/15**: CoreaSpeech dataset, pipeline code, PEFT-TTS model, and Korean Universal Benchmark released!
 
 ## Overview
-This repository contains the source code for a pipeline designed for processing Korean speech data. It includes modules for data conditioning (diarization, normalization, categorization), coreset selection based on JAMO and audio quality metrics, and supplementary finalization.
+This repository contains the source code for a pipeline designed for processing Korean speech data. It includes modules for data conditioning (diarization, normalization, categorization), coreset selection based on Jamo and audio quality metrics, and supplementary finalization.
 
 ### Key Features
 - **Data Conditioning Pipeline**:
@@ -17,7 +17,7 @@ This repository contains the source code for a pipeline designed for processing 
     - **Korean Text Normalization**: Employs `N2gk` and `N2gkPlus` for normalizing numerals, English words, and special characters in Korean text (see `src/module/data_conditioning/normalization.py`).
     - **Audio Feature Extraction**: Extracts audio features (details in `src/module/data_conditioning/audio_feature_extracting.py`).
 - **Coreset Selection**:
-    - **JAMO-based Selection**: Implements a JAMO bigram-based strategy for selecting a phonetically diverse coreset (see `src/module/coreset_selection/core_jamo_selecting.py`).
+    - **Jamo-based Selection**: Implements a Jamo bigram-based strategy for selecting a phonetically diverse coreset (see `src/module/coreset_selection/core_jamo_selecting.py`).
     - **Audio Quality Filtering**: Can filter data based on UTMOS predictions or other quality metrics (utils in `src/module/coreset_selection/utils.py`).
 - **Supplementary Finalization**:
     - **Data Appending**: Scripts to append or combine data, potentially for balancing utterance durations (see `src/module/supplementary_finalization/data_appending.py`).
@@ -135,7 +135,7 @@ python src/run_pipeline.py \
     *   `normalization.py`: Advanced Korean text normalization.
     *   `speech_tag_enrich.py`: Potentially enriches data with speech-related tags (e.g., from diarization).
 *   **`src/module/coreset_selection/`**: Modules for selecting a representative subset of the data.
-    *   `core_jamo_selecting.py`: Implements JAMO-based coreset selection logic.
+    *   `core_jamo_selecting.py`: Implements Jamo-based coreset selection logic.
     *   `utils.py`: Utility functions, including UTMOS threshold calculation.
 *   **`src/module/supplementary_finalization/`**: Scripts for final processing steps.
     *   `data_appending.py`: Appends data, possibly to balance utterance durations or combine datasets.
