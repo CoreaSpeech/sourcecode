@@ -1,0 +1,57 @@
+# Core ML/Audio Libraries
+torch
+torchaudio
+librosa
+soundfile
+praat-parselmouth
+
+# Hugging Face
+# For pyannote.audio, specific versions might be needed depending on models
+# For whisper, transformers is usually needed
+# datasets
+# transformers
+# pyannote.audio 
+
+# Data Handling & Utilities
+pandas
+numpy
+scipy
+tqdm
+Unidecode
+matplotlib
+
+# Korean NLP & Phonetics
+jamo
+g2p_en # If English G2P is used within the normalization or other steps
+
+# ASR & Speech Evaluation (if used)
+# jiwer
+
+# Add specific versions as needed, e.g., torch==1.13.1
+# Consider creating this file more accurately using 'pip freeze > requirements.txt' in a clean virtual environment after installing all dependencies.
+
+# Placeholder for pyannote, as it often has complex dependencies. 
+# User should install it following official instructions if specific features are needed.
+# For basic pyannote diarization, you might need:
+# pyannote.core
+# pyannote.database
+# pyannote.metrics
+# pyannote.pipeline
+# asteroid-filterbanks
+# einops
+# huggingface_hub
+# lightning_utilities
+# omegaconf
+# PyYAML
+# pytorch_lightning
+# resampy
+# rich
+# semver
+# speechbrain
+# stereotyped_speaker_recognition # for pyannote.audio tutorials
+# torchvision
+# typer
+# typing_extensions
+# werkzeug
+
+# For N2gk and related normalizers, ensure any specific dependencies are listed if not covered by the above. 
