@@ -4,13 +4,20 @@ torchaudio
 librosa
 soundfile
 praat-parselmouth
+pydub
 
 # Hugging Face
-# For pyannote.audio, specific versions might be needed depending on models
-# For whisper, transformers is usually needed
-# datasets
-# transformers
-# pyannote.audio 
+transformers
+datasets
+pyannote.audio
+# pyannote.audio dependencies (will be captured by pip freeze if installed):
+# pyannote.core
+# huggingface_hub
+# omegaconf
+# einops
+# asteroid-filterbanks
+# pytorch_lightning
+# etc.
 
 # Data Handling & Utilities
 pandas
@@ -19,16 +26,19 @@ scipy
 tqdm
 Unidecode
 matplotlib
+typing_extensions # For older Python versions or specific features
 
 # Korean NLP & Phonetics
 jamo
-g2p_en # If English G2P is used within the normalization or other steps
+g2p_en
+jieba   # For Chinese text processing in utils.py if used
+pypinyin # For Chinese text processing in utils.py if used
 
-# ASR & Speech Evaluation (if used)
-# jiwer
+# ASR & Speech Evaluation
+jiwer
 
-# Add specific versions as needed, e.g., torch==1.13.1
-# Consider creating this file more accurately using 'pip freeze > requirements.txt' in a clean virtual environment after installing all dependencies.
+# Consider creating this file more accurately using 'pip freeze > requirements.txt'
+# in a clean virtual environment after installing all dependencies for correct versions.
 
 # Placeholder for pyannote, as it often has complex dependencies. 
 # User should install it following official instructions if specific features are needed.
