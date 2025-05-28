@@ -4,7 +4,6 @@ from typing import Union, Literal
 from pathlib import Path
 from tqdm import tqdm
 import json
-# SAIL
 class N2gk:
 
     # ------------------- English-Korean Dictionary -------------------
@@ -348,7 +347,7 @@ class N2gk:
                 for unit, cat in self.unit_category_pairs:
                     if word.startswith(unit):
                         converted = cat.apply(num, unit, natural= self.natural)
-                        # 변환된 단위 뒤에, 원본 단위 이후 문자열이 붙어 있을 수도 있으니
+                       
                         return converted + word[len(unit):]
 
             except:
@@ -557,7 +556,7 @@ class N2gkPlus(N2gk):
         "Z": "지",
     }
 
-    # 추가된 특수기호 매핑
+   
     SPECIAL_SYMBOL_MAPPING = {
 
         "％": "퍼센트",
@@ -621,10 +620,10 @@ class N2gkPlus(N2gk):
     #HISTORY_EVENT_MAPPING = 
 
     def __init__(self, natural=True):
-        # 부모 클래스 초기화
+     
         super().__init__(natural)
 
-        # 내부에서 선언된 딕셔너리들을 합쳐서 WORD_MAPPING 생성
+
         self.WORD_MAPPING = {
             **self.UNIT_MAPPING,
             **self.COMMON_ABBR_MAPPING,
@@ -634,9 +633,7 @@ class N2gkPlus(N2gk):
         }
 
     def apply_special_symbol_mapping(self, text: str) -> str:
-        """
-        특수기호 매핑을 적용하는 함수
-        """
+    
         for symbol, replacement in self.SPECIAL_SYMBOL_MAPPING.items():
             text = re.sub(re.escape(symbol), replacement, text)
         return text
@@ -646,7 +643,7 @@ class N2gkPlus(N2gk):
         if erase_in_parentheses:
             text = re.sub(r"\([^)]*\)", "", text)
 
-        # 추가로 제거/치환할 특수문자들을 모두 포함한 매핑 딕셔너리 생성
+       
         char_map = {
             "<": "", ">": "", "=": "", "[": "", "]": "",
             "《": "", "》": "", "△": "", "＞": "", "＜": "",
@@ -663,10 +660,10 @@ class N2gkPlus(N2gk):
 
         }
 
-        # str.translate를 사용하기 위한 translation table 생성
+      
         translation_table = str.maketrans(char_map)
 
-        # translation table을 적용하여 텍스트 변환
+#      
         text = text.translate(translation_table)
         return text
 
@@ -675,26 +672,21 @@ class N2gkPlus(N2gk):
         text = re.sub(r'([a-zA-Z])([가-힣])', r'\1 \2', text)
         text = re.sub(r'([가-힣])([a-zA-Z])', r'\1 \2', text)
 
-        # 남아있는 모든 영어 문자에 대해 single_letter_mapping 적용
         text = ''.join([self.SINGLE_LETTER_MAPPING.get(c, c) for c in text])
 
         return text
 
     def apply_single_korean_mapping(self, text: str) -> str:
-        """
-        문장에서 단독으로 나타나는 한글 자모(ㄱ, ㄴ, …)와,
-        단어 시작에 붙어 있거나 여러 자모가 연속된 경우(예: "ㄱ지점", "ㄱㄴㄷㄹ")를
-        SINGLE_KOREAN_MAPPING에 따라 치환합니다.
-        """
-        # 먼저, 단일 자모 혹은 연속된 자모(하나 이상의 자모) 패턴을 찾습니다.
+        
+      
         pattern_seq = r'([' + re.escape(''.join(self.SINGLE_KOREAN_MAPPING.keys())) + r']+)'
 
         def seq_replacer(match):
             seq = match.group(0)
-            # 연속된 자모의 각 문자에 대해 매핑을 적용하여 연결합니다.
+            
             return ''.join(self.SINGLE_KOREAN_MAPPING.get(char, char) for char in seq)
 
-        # 전체 텍스트에 대해 치환 적용
+        
         text = re.sub(pattern_seq, seq_replacer, text)
         return text
 
@@ -703,31 +695,31 @@ class N2gkPlus(N2gk):
         history_keys = ['사건','혁명','절','전쟁','선언','운동', '항쟁','독립','민주화', '진상', '정변','군사' ]
         unit_keys    = {u for cat in self.UNIT_CATEGORIES for u in cat.units}
 
-        # 숫자.숫자(.숫자…) 패턴
+        
         pat = re.compile(r'(?P<num>\d+(?:\.\d+)+)')
 
         def _repl(m):
             num_dot = m.group('num')
             tail    = text[m.end():]
 
-            # tail에서 최대 세 "단어(공백 기준)" 추출
+           
             words = re.findall(r'\b(\S+?)\b', tail)[:3]
 
             first_tag = None
             for w in words:
-                # 1) 단위 키가 접두사로 나오면 unit
+               
                 if any(w.startswith(u) for u in unit_keys):
                     first_tag = 'unit'
                     break
-                # 2) history 키가 "포함"되거나 "끝"에 붙어 있으면 history
+                
                 if any((h in w) for h in history_keys):
                     first_tag = 'history'
                     break
 
-            # history 이벤트면 "3.1"→"삼일"처럼 점 제거 후 자릿수별 읽기
+           
             if first_tag == 'history':
                 return ''.join(self.NUM_KOR[int(d)] for d in num_dot if d.isdigit())
-            # 그 외는 원본 그대로
+           
             return num_dot
 
         return pat.sub(_repl, text)

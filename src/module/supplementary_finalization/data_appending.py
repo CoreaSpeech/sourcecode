@@ -215,7 +215,7 @@ class DataAppender:
 
             total_speakers -= 1
 
-        # 💾 Save all at the end
+        # Save all at the end
         with open(input_jsonl_path, 'w', encoding='utf-8') as f:
             for row in jsonl_buffer:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
