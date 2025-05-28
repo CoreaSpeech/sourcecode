@@ -12,7 +12,7 @@ This repository contains the source code for a pipeline designed for processing 
 
 ### Key Features
 - **Data Conditioning Pipeline**:
-    - **Speaker Diarization**: Utilizes `pyannote.audio` for segmenting audio by speaker.
+    - **Speaker Diarization**: Utilizes `pyannote/speaker-diarization-3.1` for segmenting audio by speaker.
     - **Text Categorization (LNCat)**: Selectively retains utterances based on their convertibility into Korean graphemes (details in `src/module/data_conditioning/categorizing.py`).
     - **Korean Text Normalization (N2gk+)**: Employs **N2gk+** for normalizing numerals, English words, and special characters in Korean text (see `src/module/data_conditioning/normalization.py`).
     - **Audio Feature Extraction**: Extracts audio features (details in `src/module/data_conditioning/audio_feature_extracting.py`).
@@ -121,7 +121,7 @@ python src/run_pipeline.py \
     *   `prepare_emilia.py`: Processes the Emilia dataset.
     *   `prepare_kss.py`: Processes the KSS dataset.
 *   **`src/module/data_conditioning/`**: Modules for cleaning and standardizing data.
-    *   `audio_feature_extracting.py`: Performs speaker diarization (using `pyannote.audio`) to ensure single-speaker segments.
+    *   `audio_feature_extracting.py`: Performs speaker diarization using `pyannote/speaker-diarization-3.1` to ensure single-speaker segments.
     *   `categorizing.py`: Implements LNCat for selective text categorization based on convertibility to Korean graphemes.
     *   `normalization.py`: Advanced Korean text normalization using N2gk+, handling numerals, English words, etc.
     *   `speech_tag_enrich.py`: Potentially enriches data with speech-related tags (e.g., from diarization).
