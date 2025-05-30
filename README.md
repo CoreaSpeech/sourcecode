@@ -5,7 +5,7 @@
 </div>
 
 ## News
-- **2025/05/15**: CoreaSpeech dataset, pipeline code, and Korean Universal Benchmark released! *(PEFT-TTS integration – TBA)*
+- **2025/05/15**: CoreaSpeech dataset, pipeline code, and Korean Universal Benchmark released! *(PEFT-TTS – TBA)*
 
 ## Overview
 This repository contains the source code for a pipeline designed for processing Korean speech data. It is the official repository for **CoreaSpeech, a 700-hour Korean speech corpus from 21,449 speakers, refined using a Jamo-based coreset selection pipeline.**
